@@ -89,5 +89,6 @@ addEventListener('keydown',function(e){var k=e.key;if(e.target.tagName==='VIDEO'
  else if(k==='Home')go(0);else if(k==='End')go(sl.length-1);
  else if(k==='f'||k==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}});
 addEventListener('click',function(e){if(e.target.closest('video'))return;go(e.clientX<innerWidth*.25?i-1:i+1)});
+[].slice.call(document.images).forEach(function(im){if(im.decode)im.decode().catch(function(){})});
 fit();var h=parseInt((location.hash||'').slice(1));apply(h>0?Math.min(h-1,sl.length-1):0);
 })();
