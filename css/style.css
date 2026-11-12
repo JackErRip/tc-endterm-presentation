@@ -1,0 +1,57 @@
+@font-face{font-family:m5x7;src:url(../assets/m5x7.ttf)}
+:root{--gold:#E8B84A;--bg:#100e1b;--bg2:#2d1c4a;--red:#df3020;--green:#59ae3d;--ink:#ede7d4}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;overflow:hidden;font-family:m5x7,monospace;color:var(--ink)}
+img,video{image-rendering:pixelated}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0;background:var(--bg);overflow:hidden}
+.slide{position:absolute;inset:0;padding:70px 110px;opacity:0;visibility:hidden;transition:opacity .35s}
+.slide.on{opacity:1;visibility:visible}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,14,27,.55),rgba(16,14,27,.9));z-index:1}
+.slide>*:not(.bg):not(.shade){position:relative;z-index:2}
+h1{font-size:150px;color:var(--gold);line-height:.9;text-shadow:6px 6px 0 #571929}
+h2{font-size:84px;color:var(--gold);margin-bottom:10px;text-shadow:4px 4px 0 #571929}
+h2 small{color:#8c8c73;font-size:48px;margin-right:24px}
+h3{font-size:46px;color:var(--gold)}
+p,li{font-size:40px;line-height:1.25}
+.sub{font-size:56px;color:#d2e283}
+.center{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.small{font-size:32px;color:#bab197}
+.card{background:rgba(16,14,27,.82);border:4px solid var(--gold);padding:24px 30px}
+.row{display:flex;gap:28px}
+.feat{display:flex;align-items:center;gap:30px;margin:26px 0}
+.feat img{width:96px}
+.feat h3{margin-bottom:4px}
+.grid{display:grid;gap:22px}
+.g3{grid-template-columns:repeat(3,1fr)}.g5{grid-template-columns:repeat(5,1fr)}.g6{grid-template-columns:repeat(6,1fr)}
+.cell{background:#2f2d39;border:4px solid #50515e;text-align:center;padding:14px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.cell img{height:330px;max-width:100%;object-fit:contain}
+.cell h3{font-size:40px}.cell p{font-size:30px;color:#bab197}
+.hot{border-color:var(--gold)}
+.pill{display:inline-block;background:var(--red);color:#fff;padding:4px 18px;font-size:34px;margin-top:10px}
+.tag{position:absolute;right:70px;bottom:50px;font-size:30px;color:#8c8c73;z-index:3}
+.quote{font-size:52px;color:var(--ink);margin-top:30px}
+.quote b{color:var(--gold)}
+#hud{position:fixed;right:14px;bottom:10px;color:#fff;font-size:22px;opacity:.55;z-index:9;font-family:m5x7}
+#bar{position:absolute;left:0;bottom:0;height:8px;background:var(--gold);z-index:5;transition:width .3s}
+.pop{animation:pop .5s steps(5) both}
+@keyframes pop{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.on .stg>*{animation:pop .5s steps(5) both}
+.on .stg>*:nth-child(2){animation-delay:.1s}.on .stg>*:nth-child(3){animation-delay:.2s}.on .stg>*:nth-child(4){animation-delay:.3s}.on .stg>*:nth-child(5){animation-delay:.4s}.on .stg>*:nth-child(6){animation-delay:.5s}
+video{width:100%;background:#000;border:4px solid var(--gold)}
+
+/* morph transitions (View Transitions API; falls back to the plain fade) */
+.vt-ok .slide{transition:none}
+.vt-ok .on .stg>*{animation:none}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.45s}
+::view-transition-group(*){animation-duration:.7s;animation-timing-function:cubic-bezier(.7,0,.2,1)}
+::view-transition-old(*),::view-transition-new(*){image-rendering:pixelated}
+
+/* morph v4: old slide dissolves away over the live new one; shared title/background glide; content flows in via JS (app.js enter) */
+@keyframes vt-away{from{opacity:1;transform:none}to{opacity:0;transform:scale(1.035)}}
+::view-transition-old(root){animation:.75s cubic-bezier(.45,0,.2,1) both vt-away;mix-blend-mode:normal}
+::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-group(title),::view-transition-group(bgimg){animation-duration:.9s;animation-timing-function:cubic-bezier(.45,0,.1,1)}
+::view-transition-old(title),::view-transition-new(title){width:auto;height:100%;object-fit:none;object-position:left center}
+::view-transition-image-pair(title){isolation:auto}
+::view-transition-old(bgimg),::view-transition-new(bgimg){width:100%;height:100%;object-fit:cover}
