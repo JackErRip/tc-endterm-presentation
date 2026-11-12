@@ -45,4 +45,5 @@ video{width:100%;background:#000;border:4px solid var(--gold)}
 .mo .on .stg>*{animation:none}
 .slide.on{z-index:2}
 .slide.out{visibility:visible;opacity:1;z-index:1;pointer-events:none}
+#stage>.slide~img,#stage>h1,#stage>h2,#stage>.card,#stage>.cell{will-change:left,top,width,height,opacity}
 #stage>.slide~img,#stage>h1,#stage>h2,#stage>.card,#stage>.cell{margin:0}
