@@ -48,7 +48,7 @@ em,i{font-style:normal;color:var(--mute)}
 .logo-title{width:1260px;height:auto}
 .tagline{font-size:48px;color:var(--mute);margin-top:20px}
 .hero{height:224px;width:auto;margin:24px 0 8px;border:4px solid var(--gold);box-shadow:8px 8px 0 rgba(0,0,0,.45)}
-.byline{display:flex;align-items:center;gap:28px;font-size:32px;color:var(--mute)}
+.byline{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:32px;color:var(--mute)}
 .logo-sf3{width:462px;height:auto}
 .names{font-size:48px;margin:18px 0 8px}
 .team{display:flex;flex-direction:column;align-items:center;gap:20px;margin-top:8px}
