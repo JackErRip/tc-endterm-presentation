@@ -1,49 +1,111 @@
-@font-face{font-family:m5x7;src:url(../assets/m5x7.ttf)}
-:root{--gold:#E8B84A;--bg:#100e1b;--bg2:#2d1c4a;--red:#df3020;--green:#59ae3d;--ink:#ede7d4}
+﻿@font-face{font-family:m5x7;src:url(../assets/fonts/m5x7.ttf)}
+/* palette: gold on deep violet-black, from the game's UI. --well matches the GIFs' baked-in backdrop. */
+:root{--bg:#14111d;--panel:#1d1828;--well:#26222b;--line:#3a3347;--gold:#e8b84a;--gold-d:#9c7426;--blood:#571929;
+ --red:#df3020;--ink:#ede7d4;--mute:#a69e8a;--dim:#6e6779}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:#000;overflow:hidden;font-family:m5x7,monospace;color:var(--ink)}
-img,video{image-rendering:pixelated}
-#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0;background:var(--bg);overflow:hidden}
-.slide{position:absolute;inset:0;padding:70px 110px;opacity:0;visibility:hidden;transition:opacity .35s}
-.slide.on{opacity:1;visibility:visible}
-.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,14,27,.55),rgba(16,14,27,.9));z-index:1}
-.slide>*:not(.bg):not(.shade){position:relative;z-index:2}
-h1{font-size:150px;color:var(--gold);line-height:.9;text-shadow:6px 6px 0 #571929}
-h2{font-size:84px;color:var(--gold);margin-bottom:10px;text-shadow:4px 4px 0 #571929}
-h2 small{color:#8c8c73;font-size:48px;margin-right:24px}
-h3{font-size:46px;color:var(--gold)}
-p,li{font-size:40px;line-height:1.25}
-.sub{font-size:56px;color:#d2e283}
-.center{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.small{font-size:32px;color:#bab197}
-.card{background:rgba(16,14,27,.82);border:4px solid var(--gold);padding:24px 30px}
-.row{display:flex;gap:28px}
-.feat{display:flex;align-items:center;gap:30px;margin:26px 0}
-.feat img{width:96px}
-.feat h3{margin-bottom:4px}
-.grid{display:grid;gap:22px}
-.g3{grid-template-columns:repeat(3,1fr)}.g5{grid-template-columns:repeat(5,1fr)}.g6{grid-template-columns:repeat(6,1fr)}
-.cell{background:#2f2d39;border:4px solid #50515e;text-align:center;padding:14px;display:flex;flex-direction:column;align-items:center;gap:6px}
-.cell img{height:330px;max-width:100%;object-fit:contain}
-.cell h3{font-size:40px}.cell p{font-size:30px;color:#bab197}
-.hot{border-color:var(--gold)}
-.pill{display:inline-block;background:var(--red);color:#fff;padding:4px 18px;font-size:34px;margin-top:10px}
-.tag{position:absolute;right:70px;bottom:50px;font-size:30px;color:#8c8c73;z-index:3}
-.quote{font-size:52px;color:var(--ink);margin-top:30px}
-.quote b{color:var(--gold)}
-#hud{position:fixed;right:14px;bottom:10px;color:#fff;font-size:22px;opacity:.55;z-index:9;font-family:m5x7}
-#bar{position:absolute;left:0;bottom:0;height:8px;background:var(--gold);z-index:5;transition:width .3s}
-.pop{animation:pop .5s steps(5) both}
-@keyframes pop{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
-.on .stg>*{animation:pop .5s steps(5) both}
-.on .stg>*:nth-child(2){animation-delay:.1s}.on .stg>*:nth-child(3){animation-delay:.2s}.on .stg>*:nth-child(4){animation-delay:.3s}.on .stg>*:nth-child(5){animation-delay:.4s}.on .stg>*:nth-child(6){animation-delay:.5s}
-video{width:100%;background:#000;border:4px solid var(--gold)}
+img,video{image-rendering:pixelated;display:block}
 
-/* morph transitions: js/app.js moves the things two slides share (titles, the same pictures, cards) from one place to the next */
-.mo .slide{transition:none}
-.mo .on .stg>*{animation:none}
-.slide.on{z-index:2}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;
+ background:radial-gradient(120% 90% at 50% 0%,#1f1930 0%,var(--bg) 60%)}
+.slide{position:absolute;inset:0;padding:72px 120px 168px;opacity:0;visibility:hidden;display:flex;flex-direction:column}
+.slide.on{opacity:1;visibility:visible;z-index:2}
 .slide.out{visibility:visible;opacity:1;z-index:1;pointer-events:none}
-#stage>.slide~img,#stage>h1,#stage>h2,#stage>.card,#stage>.cell{will-change:left,top,width,height,opacity}
-#stage>.slide~img,#stage>h1,#stage>h2,#stage>.card,#stage>.cell{margin:0}
+.slide>*:not(.bg):not(.shade){position:relative;z-index:2}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,17,29,.62),rgba(20,17,29,.92))}
+.shade.side{background:linear-gradient(270deg,rgba(20,17,29,.95) 0%,rgba(20,17,29,.85) 40%,rgba(20,17,29,.1) 70%),linear-gradient(180deg,rgba(20,17,29,.7) 0%,rgba(20,17,29,0) 22%,rgba(20,17,29,0) 80%,rgba(20,17,29,.7) 100%)}
+.mort .steps,.mort .quote{align-self:flex-end;width:760px;flex:none}
+.mort .quote{font-size:48px}
+.center{align-items:center;justify-content:center;text-align:center;padding:60px 120px}
+
+/* type scale: m5x7 is drawn on a 16px grid, so sizes stay on multiples of 16 */
+h1{font-size:176px;line-height:1;color:var(--gold);text-shadow:8px 8px 0 var(--blood);font-weight:normal}
+h2{font-size:96px;line-height:1;color:var(--gold);text-shadow:6px 6px 0 var(--blood);font-weight:normal;white-space:nowrap;align-self:flex-start;margin-bottom:40px}
+h2 .n{color:var(--dim);font-size:64px;margin-right:32px;text-shadow:none;vertical-align:8px}
+h3{font-size:48px;line-height:1;color:var(--gold);font-weight:normal}
+p,li{font-size:48px;line-height:1.15}
+b{color:var(--gold);font-weight:normal}
+em,i{font-style:normal;color:var(--mute)}
+.lead{font-size:64px;line-height:1.05;margin:-8px 0 48px}
+.quote{font-size:64px;line-height:1.1;margin-top:auto;padding-top:28px}
+.quote.big{margin:24px 0 0}
+.note{font-size:32px;color:var(--mute);margin-top:20px}
+.small{font-size:32px;color:var(--mute)}
+
+/* panels */
+.card{background:var(--panel);border:4px solid var(--line);box-shadow:8px 8px 0 rgba(0,0,0,.35)}
+.cell{background:var(--panel);border:4px solid var(--line);padding:16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.cell.hot,.card.hot{border-color:var(--gold)}
+.cell p{font-size:32px;color:var(--mute);line-height:1.1}
+.well{background:var(--well);display:flex;align-items:center;justify-content:center;width:100%;overflow:hidden}
+.well img{height:100%;width:auto;max-width:100%;object-fit:contain}
+.cols{display:grid;gap:32px}.c3{grid-template-columns:repeat(3,1fr)}
+.grid{display:grid;gap:24px}.g3{grid-template-columns:repeat(3,1fr)}.g5{grid-template-columns:repeat(5,1fr)}.g6{grid-template-columns:repeat(6,1fr)}
+
+/* 1 title + 9 thank you */
+.kicker{font-size:32px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:28px}
+.logo-title{width:1260px;height:auto}
+.tagline{font-size:48px;color:var(--mute);margin-top:20px}
+.hero{height:224px;width:auto;margin:24px 0 8px;border:4px solid var(--gold);box-shadow:8px 8px 0 rgba(0,0,0,.45)}
+.byline{display:flex;align-items:center;gap:28px;font-size:32px;color:var(--mute)}
+.logo-sf3{width:462px;height:auto}
+.names{font-size:48px;margin:18px 0 8px}
+.team{display:flex;flex-direction:column;align-items:center;gap:20px;margin-top:8px}
+.member{border-top:4px solid var(--gold-d);padding-top:14px;min-width:460px}
+.member h3{font-size:48px}.member p{font-size:32px;color:var(--mute);margin-top:6px}
+.ask{font-size:64px;color:var(--gold);margin:36px 0 12px}
+
+/* 2 the game */
+.pillar{padding:24px 28px 30px;display:flex;flex-direction:column;gap:16px}
+.pillar .well{height:216px}
+.pillar p{font-size:40px;color:var(--ink);line-height:1.15}
+
+/* 3 character */
+.split{display:flex;gap:40px;align-items:stretch}
+.split>.grid{flex:1}
+.spec{width:500px;padding:24px 28px;display:flex;flex-direction:column;gap:18px}
+.well.big{height:340px}
+.facts{list-style:none;display:flex;flex-direction:column;gap:6px}
+.facts li{font-size:40px}
+.g3 .cell .well{height:196px}
+.cell h3 em{font-size:32px;color:var(--gold-d)}
+
+/* 4 bosses */
+.boss .well{height:300px}
+.boss h3{font-size:40px;min-height:80px;display:flex;align-items:center}
+.well.q{font-size:160px;color:var(--gold)}
+
+/* 5 tiles */
+.tile{padding:12px 12px 18px}
+.tile img{width:100%;height:440px;object-fit:cover}
+.stats{display:flex;gap:56px;margin-top:36px;font-size:48px}
+
+/* 6 castle + 7 mort numbered steps */
+.split.wide{align-items:center;gap:48px}
+.shot{border:4px solid var(--gold);background:var(--well);box-shadow:12px 12px 0 rgba(0,0,0,.4)}
+.shot img{width:1104px;height:621px}
+.shot figcaption{font-size:32px;color:var(--mute);padding:10px 16px 12px;border-top:4px solid var(--line)}
+.steps{display:flex;flex-direction:column;gap:24px;flex:1}
+.steps.narrow{max-width:1000px}
+.step{display:flex;align-items:center;gap:28px;padding:22px 28px}
+.step .k{flex:none;width:64px;height:64px;background:var(--gold);color:var(--bg);font-size:48px;display:flex;align-items:center;justify-content:center}
+.step p{font-size:48px;line-height:1.05}
+.keys{display:inline-flex;align-items:center;gap:14px;margin-left:16px;vertical-align:middle}
+.keys b{border:4px solid var(--gold);padding:0 12px;line-height:44px;font-size:40px}
+.keys img{width:48px;height:48px}
+
+/* 8 trailer */
+.player{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.player video{height:100%;max-height:744px;aspect-ratio:16/9;width:auto;background:#000;border:4px solid var(--gold);box-shadow:12px 12px 0 rgba(0,0,0,.4);image-rendering:auto}
+
+/* chrome that stays put across slides */
+#foot{position:absolute;left:120px;right:120px;bottom:40px;height:56px;display:flex;align-items:center;gap:20px;font-size:32px;color:var(--dim);z-index:4}
+#stage.ready #foot{transition:opacity .4s}
+#foot img{width:48px;height:56px}
+#foot b{margin-left:auto;color:var(--mute)}
+#stage.bare #foot{opacity:0}
+#bar{position:absolute;left:0;bottom:0;width:100%;height:8px;background:var(--gold);z-index:5;transform-origin:0 0;transition:transform .5s cubic-bezier(.65,0,.25,1)}
+
+/* morph ghosts (js/app.js): transform + opacity only, so the compositor does the work */
+.ghost{position:absolute;margin:0;z-index:6;pointer-events:none;transform-origin:0 0;will-change:transform,opacity;animation:none;box-sizing:border-box}
