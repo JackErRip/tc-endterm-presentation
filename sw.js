@@ -1,5 +1,5 @@
 /* Offline cache. Bump V when assets change. Pages/css/js: network first (updates arrive), assets: cache first. */
-var V='tc-deck-g2';
+var V='tc-deck-g3';
 self.addEventListener('install',function(e){self.skipWaiting()});
 self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return k!==V}).map(function(k){return caches.delete(k)}))}).then(function(){return self.clients.claim()}))});
 function ranged(req,res){var m=/bytes=(\d*)-(\d*)/.exec(req.headers.get('range')||'');if(!m||res.status!==200)return Promise.resolve(res);
