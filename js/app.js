@@ -42,7 +42,7 @@ function finishNow(){if(running){running();running=null}}
 function apply(n){sl.forEach(function(e,k){e.classList.toggle('on',k===n);if(k!==n){var v=e.querySelector('video');if(v&&!v.paused)v.pause()}});
  [].slice.call(sl[n].querySelectorAll('video.loop')).forEach(function(v){var p=v.play();if(p&&p.catch)p.catch(function(){})});
  [].slice.call(document.querySelectorAll('.slide:not(.on) video.loop')).forEach(function(v){v.pause()});
- i=n;st.classList.toggle('bare',sl[n].classList.contains('bare'));
+ i=n;if(window.__slide)window.__slide(n);st.classList.toggle('bare',sl[n].classList.contains('bare'));
  count.textContent=(n+1)+' / '+sl.length;bar.style.transform='scaleX('+((n+1)/sl.length)+')';
  try{history.replaceState(null,'','#'+(n+1))}catch(e){}
  clearTimeout(warmT);warmT=setTimeout(function(){warm(n+1);warm(n-1)},DUR+500)}
