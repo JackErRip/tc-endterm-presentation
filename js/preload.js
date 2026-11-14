@@ -20,8 +20,8 @@ function add(u){if(!u)return;var a=document.createElement('a');a.href=u;u=a.href
 [].forEach.call(document.querySelectorAll('img[src]'),function(i){add(i.getAttribute('src'))});
 [].forEach.call(document.querySelectorAll('video'),function(v){if(v.getAttribute('poster'))add(v.getAttribute('poster'));if(v.classList.contains('loop')&&v.getAttribute('src'))add(v.getAttribute('src'))});
 add('assets/fonts/m5x7.ttf');
-var trailer=null;   // the one file this browser will actually play; fetched after the screen opens
-[].some.call(document.querySelectorAll('#trailer source'),function(s){if(document.createElement('video').canPlayType(s.type)){trailer=s.getAttribute('src');return true}});
+var trailer=window.__trailerSrc?window.__trailerSrc():null;   // the quality this browser will play; cached before the screen opens
+if(trailer)add(trailer);   // cache the trailer before the screen opens
 var done=0,total=urls.length+2;
 function tick(){done++;var p=Math.min(100,Math.round(done/total*100));fill.style.transform='scaleX('+p/100+')';pct.textContent=p+'%'}
 function load(u){return fetch(u).then(function(r){return r.blob()}).then(function(b){if(/\.(png|gif|jpg|jpeg)(\?|$)/i.test(u)&&window.createImageBitmap){return createImageBitmap(b).catch(function(){})}}).catch(function(){}).then(tick)}
@@ -44,7 +44,6 @@ reg().then(function(){
  return Promise.all(urls.map(load)).then(loops).then(warm)
 }).then(function(){
  open();
- if(trailer)fetch(trailer).catch(function(){});   // quietly cache the trailer while the talk starts
 });
-setTimeout(function(){if(!ready)open()},45000);   // never trap the presenter on a slow network
+setTimeout(function(){if(!ready)open()},90000);   // never trap the presenter on a slow network
 })();

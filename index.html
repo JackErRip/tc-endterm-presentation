@@ -1,7 +1,7 @@
 ﻿<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tyrone Clinton: Wants to Go Home - Endterm</title>
-<link rel="stylesheet" href="css/style.css?v=20261114k"></head><body>
+<link rel="stylesheet" href="css/style.css?v=20261115a"></head><body>
 <div id="loader"><div class="lt">TYRONE CLINTON</div><div class="ls">Wants to go home</div><div class="lb"><div id="lfill"></div></div><div class="lp"><span id="lmsg">LOADING</span> <span id="lpct">0%</span></div><div class="lh">Press any key or click to begin</div></div>
 <!-- Keys: Right/Space/Enter next, Left/Backspace back, Home/End, F fullscreen. Click right 3/4 = next, left 1/4 = back. -->
 <div id="stage">
@@ -165,16 +165,11 @@
  <p class="quote">"A horse named Mort. Sounds like a guy who does my taxes."<br><b>- Tyrone</b></p>
 </section>
 
-<!-- 8 Â· TRAILER
-     To swap in a re-exported trailer, replace BOTH assets/video/trailer1_hevc.mp4 (H.265, small) and trailer1.mp4 (H.264 fallback).
-     Optionally replace assets/video/trailer1.jpg too: it is the still shown before Play. -->
+<!-- TRAILER: files in assets/video: trailer_4k60.mp4, trailer_1080p60_hevc.mp4 (both H.265), trailer_1080p60.mp4 (H.264 fallback). js/trailer.js picks one; poster = trailer1.jpg -->
 <section class="slide">
  <h2><span class="n">12</span>Trailer</h2>
  <div class="player">
-  <video id="trailer" controls preload="none" playsinline poster="assets/video/trailer1.jpg?v=h">
-   <source src="assets/video/trailer1_hevc.mp4?v=g" type='video/mp4; codecs="hvc1"'>
-   <source src="assets/video/trailer1.mp4?v=g" type="video/mp4">
-  </video>
+  <video id="trailer" controls preload="none" playsinline poster="assets/video/trailer1.jpg?v=h"></video>
  </div>
 </section>
 
@@ -199,7 +194,8 @@
 <footer id="foot"><img src="assets/img/sf3_crest.png" alt=""><span>Tyrone Clinton: Wants to Go Home</span><b id="count">1 / 9</b></footer>
 <div id="bar"></div>
 </div>
-<script src="js/notes.js?v=20261114k"></script>
-<script src="js/app.js?v=20261114k"></script>
-<script src="js/preload.js?v=20261114k"></script>
+<script src="js/notes.js?v=20261115a"></script>
+<script src="js/trailer.js"></script>
+<script src="js/app.js?v=20261115a"></script>
+<script src="js/preload.js?v=20261115a"></script>
 </body></html>

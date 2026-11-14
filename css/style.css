@@ -149,3 +149,6 @@ h2::after{content:"";display:block;height:8px;width:100%;margin-top:14px;backgro
 @keyframes lblink{50%{opacity:.25}}
 .step.credit{border-color:var(--gold-d);background:transparent;box-shadow:none}
 .step.credit p{color:#f3e9d2}
+.tq{display:flex;gap:12px;justify-content:center;margin-top:14px}
+.tq button{font:inherit;font-size:26px;color:var(--gold);background:transparent;border:3px solid var(--gold-d);padding:4px 16px;cursor:pointer}
+.tq button.on{background:var(--gold);color:#1a0a1e;border-color:var(--gold)}
