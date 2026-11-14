@@ -3,15 +3,16 @@
 var N=[
 {t:20,h:'Title',s:"We're Special Forces of 3. This is Tyrone Clinton, a souls-like where one guy just wants to go home."},
 {t:45,h:'The Game',s:"Three pillars: tough bosses, three lands, and a world that doesn't hold your hand. Let the three loops play while you talk."},
-{t:45,h:'Character & Animation',s:"Tyrone is hand-animated. Idle, run, roll, attack, parry. Each one has to read clearly at pixel size, and they all have to feel responsive."},
+{t:40,h:'Character & Animation',s:"Tyrone is hand-animated. Idle, run, roll, attack, parry. Each one has to read clearly at pixel size, and they all have to feel responsive."},
 {t:35,h:'Bosses',s:"Every land ends with a boss that has its own attacks and its own personality."},
-{t:55,h:'Boss Fight: Godskin Hunchback',s:"Play the clip. He winds up, you panic. Then dodge, parry, punish. Every hit gets a spark and a freeze-frame, which is why it feels heavy."},
-{t:35,h:'Tilesets',s:"Each land has its own tileset. We build the level from tiles, then add props and lighting on top."},
-{t:35,h:'Across the Land',s:"Plains, desert, mountains, then Johnny's castle. One road home, and a boss at every gate."},
-{t:30,h:'Inside the Keep',s:"The castle is evil, but with great windows. Furnace, library, living quarters, and every hall ends at Johnny's door. CUT THIS ONE if you are running late."},
+{t:30,h:'On the Road',s:"Between every boss the road is not empty: husks, brutes and slimes. Let the clips play."},
+{t:55,h:'Boss Fight: Godskin Hunchback',s:"Play the clip. He winds up, you panic. Then dodge, parry, hit back. Every hit gets a spark and a freeze-frame, which is why it feels heavy."},
+{t:30,h:'Tilesets',s:"Each land has its own tileset. We build the level from tiles, then add props and lighting on top."},
+{t:30,h:'Across the Land',s:"Plains, desert, mountains, then Johnny's castle. One road home, and a boss at every gate."},
+{t:25,h:'Inside the Keep',s:"The castle is evil, but with great windows. Furnace, library, living quarters, and every hall ends at Johnny's door. CUT THIS ONE if you are running late."},
 {t:50,h:'No Invisible Walls',s:"Most games stop you at the map edge with an invisible wall. We hated that. Here you can walk into the lake, the quicksand or off the cliff. The edge never stops you, it just kills you. Play the three clips."},
-{t:45,h:'Level Mock-up: The Castle',s:"The floor is lava, on a timer. The statues are not decoration. One wall is lying to you."},
-{t:35,h:'Meet Mort',s:"Mort is the horse. Whistle and he comes, and you ride him across the land."},
+{t:40,h:'Level Mock-up: The Castle',s:"The floor is lava, on a timer. The statues are not decoration. One wall is lying to you."},
+{t:30,h:'Meet Mort',s:"Mort is the horse. Whistle and he comes, and you ride him across the land."},
 {t:150,h:'Trailer',s:"Press play and say nothing. If you are behind, press Space after about a minute to skip to the end."},
 {t:20,h:'Thank You',s:"Thanks. Questions? Short answers: Godot 4. Hard but fair, with a funny tone. Next: Android and Steam, then co-op. Name each member's part."}
 ];

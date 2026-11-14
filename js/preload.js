@@ -2,6 +2,7 @@
 (function(){
 var L=document.getElementById('loader'),fill=document.getElementById('lfill'),pct=document.getElementById('lpct'),msg=document.getElementById('lmsg');
 if(!L)return;
+if(/[?&]skip/.test(location.search)){L.parentNode.removeChild(L);return}   // ?skip = no loading screen (for testing)
 var ready=false;
 function open(){ready=true;msg.textContent='READY';L.classList.add('ready')}
 addEventListener('keydown',function(e){
