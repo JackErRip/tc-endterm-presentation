@@ -13,7 +13,7 @@ function stateMsg(withClock){
  var d=window.__deck,i=d?d.at():0,sl=document.querySelectorAll('.slide')[i],n=window.__notes?window.__notes(i):{},
   c=document.getElementById('count'),h=sl&&sl.querySelector('h1,h2');
  var m={t:'state',i:i,c:c?c.textContent:(i+1)+'',title:n.h||(h?h.textContent.replace(/^\d+/,''):'Slide '+(i+1)),notes:n.s||''};
- if(withClock&&window.__tinfo){var x=window.__tinfo();m.clock=x.clock;m.pace=x.pace;m.late=x.late}
+ if(withClock&&window.__tinfo){var x=window.__tinfo();m.clock=x.clock;m.pace=x.pace;m.late=x.late;m.lim=x.lim;m.limMin=x.limMin}
  return m}
 function directOpen(p){return !!(p&&p.dc&&p.dc.readyState==='open')}
 function phoneUp(){return !!(cur&&(directOpen(cur)||Date.now()-cur.seen<75000))}
@@ -31,6 +31,8 @@ function cmd(a){var d=window.__deck;if(!d)return;
  else if(a==='last')d.go(d.len-1);
  else if(a==='notes')window.dispatchEvent(new KeyboardEvent('keydown',{key:'n'}));
  else if(a==='timer')sendState(true);
+ else if(a==='timeup'){if(window.__setLimit)window.__setLimit(1);sendState(true)}
+ else if(a==='timedown'){if(window.__setLimit)window.__setLimit(-1);sendState(true)}
  else if(a==='sync')sendState()}
 function handle(m,p){
  if(!m||!m.t)return;

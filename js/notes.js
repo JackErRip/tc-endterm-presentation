@@ -17,31 +17,36 @@ var N=[
 {t:20,h:'Thank You',s:"Thank you. Aldrien led and directed. Kurt did the trees, plants and Tekitou Teru. Zenon did the hit sparks and blood FX. Questions? Short answers: made in Godot 4. Hard but fair, with a funny tone. Next: Android and Steam, then co-op."}
 ];
 var cur=0,t0=0,pop=null,ov=null;
+var BASE=0;N.forEach(function(a){BASE+=a.t});   // the script is written for BASE seconds; the talk length scales it
+var LIM=600;try{var sv=parseInt(localStorage.getItem('tcTalkMin'));if(sv>=1&&sv<=90)LIM=sv*60}catch(e){}
+function setLim(dm){var m=Math.max(1,Math.min(90,Math.round(LIM/60)+dm));LIM=m*60;try{localStorage.setItem('tcTalkMin',m)}catch(e){}refresh()}
+window.__setLimit=setLim;
 function mmss(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
-function budgetAt(n){var s=0;for(var k=0;k<n;k++)s+=N[k].t;return s}
+function budgetAt(n){var s=0;for(var k=0;k<n;k++)s+=N[k].t;return s*LIM/BASE}
 function html(){var a=N[cur]||{},b=N[cur+1];
  var el=t0?(Date.now()-t0)/1000:0,tgt=budgetAt(cur);
  var d=t0?Math.round(el-tgt):0,late=d>0;
- return {n:(cur+1)+' / '+N.length,h:a.h||'',s:a.s||'',t:mmss(a.t||0),next:b?('Next: '+b.h):'Last slide',
+ return {n:(cur+1)+' / '+N.length,h:a.h||'',s:a.s||'',t:mmss((a.t||0)*LIM/BASE),lim:mmss(LIM),limMin:Math.round(LIM/60),next:b?('Next: '+b.h):'Last slide',
   clock:mmss(el),pace:t0?(late?mmss(d)+' behind':mmss(-d)+' ahead'):'starts on slide 2',late:late}}
 function paint(doc){var q=function(i){return doc.getElementById(i)},x=html();
  q('n').textContent=x.n;q('h').textContent=x.h;q('s').textContent=x.s;q('t').textContent='about '+x.t;
- q('x').textContent=x.next;q('c').textContent=x.clock;q('p').textContent=x.pace;q('p').style.color=x.late?'#ff8a8a':'#8fe39a'}
+ q('x').textContent=x.next;q('c').textContent=x.clock+' / '+x.lim;if(q('lv'))q('lv').textContent=x.limMin+' min';q('p').textContent=x.pace;q('p').style.color=x.late?'#ff8a8a':'#8fe39a'}
 var CSS='body{margin:0;background:#120b1e;color:#f3e9d2;font:22px/1.5 Georgia,serif;padding:24px}#n,#x{color:#9a8fb3;font-size:16px}#h{color:#e8b84a;font-size:30px;margin:6px 0}#s{font-size:30px;line-height:1.45;margin:18px 0}#t{color:#9a8fb3;font-size:16px}#c{font-size:54px;color:#e8b84a;font-family:monospace}#p{font-size:20px;font-family:monospace}';
-var BODY='<div id=n></div><div id=h></div><div id=t></div><div id=s></div><div id=x></div><hr><span id=c></span> <span id=p></span>';
+var BODY='<div id=n></div><div id=h></div><div id=t></div><div id=s></div><div id=x></div><hr><span id=c></span> <span id=p></span><div style="margin-top:14px;font:18px monospace;color:#9a8fb3">talk length <button id=lm style="font:inherit;padding:2px 12px">-</button> <b id=lv style="color:#e8b84a"></b> <button id=lp style="font:inherit;padding:2px 12px">+</button> <span>(keys [ and ] on the deck)</span></div>';
 function ensureOv(){if(ov)return ov;ov=document.createElement('div');
  ov.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;display:none;box-sizing:border-box;padding:18px 32px;background:rgba(10,6,20,.94);border-top:2px solid #e8b84a';
  ov.innerHTML='<style>#ov *{all:revert}</style>'+'<div id=ovb></div>';ov.id='ov';document.body.appendChild(ov);return ov}
 function paintOv(){if(!ov||ov.style.display==='none')return;var x=html();
- ov.firstChild.nextSibling.innerHTML='<div style="font:600 20px Georgia;color:#e8b84a">'+x.n+' - '+x.h+' <span style="color:#9a8fb3;font-weight:400">('+x.t+', '+x.clock+', '+x.pace+')</span></div><div style="font:28px/1.4 Georgia;color:#f3e9d2;margin-top:8px">'+x.s+'</div>'}
+ ov.firstChild.nextSibling.innerHTML='<div style="font:600 20px Georgia;color:#e8b84a">'+x.n+' - '+x.h+' <span style="color:#9a8fb3;font-weight:400">('+x.t+', '+x.clock+' of '+x.lim+', '+x.pace+')</span></div><div style="font:28px/1.4 Georgia;color:#f3e9d2;margin-top:8px">'+x.s+'</div>'}
 function refresh(){if(pop&&!pop.closed&&pop.document.getElementById('s'))paint(pop.document);paintOv()}
 window.__notes=function(n){return N[n]||{}};
-window.__tinfo=function(){var x=html();return{clock:x.clock,pace:x.pace,late:x.late}};
+window.__tinfo=function(){var x=html();return{clock:x.clock,pace:x.pace,late:x.late,lim:x.lim,limMin:x.limMin}};
 window.__slide=function(n){cur=n;if(n>=1&&!t0)t0=Date.now();refresh()};
 setInterval(refresh,1000);
 addEventListener('keydown',function(e){var k=e.key;
  if(k==='s'||k==='S'){if(pop&&!pop.closed){pop.focus();return}
   pop=window.open('','speaker','width=760,height=620');if(!pop){alert('Allow pop-ups to use the speaker window, or press N.');return}
-  pop.document.write('<title>Speaker</title><style>'+CSS+'</style>'+BODY);pop.document.close();refresh()}
+  pop.document.write('<title>Speaker</title><style>'+CSS+'</style>'+BODY);pop.document.close();pop.document.getElementById('lm').onclick=function(){setLim(-1)};pop.document.getElementById('lp').onclick=function(){setLim(1)};refresh()}
+ else if(k==='['){setLim(-1)} else if(k===']'){setLim(1)}
  else if(k==='n'||k==='N'){ensureOv();ov.style.display=ov.style.display==='none'?'block':'none';paintOv()}});
 })();
