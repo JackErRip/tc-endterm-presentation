@@ -152,3 +152,9 @@ h2::after{content:"";display:block;height:8px;width:100%;margin-top:14px;backgro
 .tq{display:flex;gap:12px;justify-content:center;margin-top:14px}
 .tq button{font:inherit;font-size:26px;color:var(--gold);background:transparent;border:3px solid var(--gold-d);padding:4px 16px;cursor:pointer}
 .tq button.on{background:var(--gold);color:#1a0a1e;border-color:var(--gold)}
+
+.spec .well.big{height:230px}
+.fxrow{display:flex;gap:12px;margin-top:auto}
+.fxrow>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:26px;color:var(--mute)}
+.fxrow .well{height:128px}
+.fxrow .well img{image-rendering:pixelated}
