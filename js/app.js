@@ -109,7 +109,7 @@ function enter(slide,ps,run){var els=[],k=0,boxes=ps.filter(function(p){return p
   ch.animate([{opacity:0,transform:'translateY(16px)'},{opacity:1,transform:'none'}],{duration:480,delay:DUR*.6,easing:'cubic-bezier(.2,.75,.2,1)',fill:'backwards'})})})}
 
 addEventListener('resize',fit);
-addEventListener('keydown',function(e){var k=e.key;if(e.target.tagName==='VIDEO'&&k===' ')return;
+addEventListener('keydown',function(e){var k=e.key;if(window.__qrOpen&&window.__qrOpen())return;if(e.target.tagName==='VIDEO'&&k===' ')return;
  if(k==='ArrowRight'||k==='PageDown'||k===' '||k==='Enter'){e.preventDefault();go(i+1)}
  else if(k==='ArrowLeft'||k==='PageUp'||k==='Backspace'){e.preventDefault();go(i-1)}
  else if(k==='Home')go(0);else if(k==='End')go(sl.length-1);

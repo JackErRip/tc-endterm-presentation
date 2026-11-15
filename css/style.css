@@ -179,3 +179,19 @@ section:has(.byline) .hero{height:196px}
 .byline{margin-top:20px;gap:12px}
 .byline>span{text-shadow:0 0 8px #000,0 0 8px #000,2px 2px 0 #000}
 .byline{gap:34px}.names{margin-top:30px}
+
+.repo-row{margin:30px 0 4px}
+.repo{font-size:54px;color:var(--gold);text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:10px;cursor:pointer;text-shadow:3px 3px 0 #000}
+.repo:hover{color:#fff}
+#qrm{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;background:rgba(8,5,16,.86)}
+#qrm.on{display:flex}
+#qrm .qbox{position:relative;background:var(--panel);border:4px solid var(--gold);box-shadow:10px 10px 0 rgba(0,0,0,.5);padding:3.2vmin 4vmin;display:flex;flex-direction:column;align-items:center;gap:2vmin;max-width:92vw;max-height:94vh;font-family:inherit;color:#f3e9d2}
+#qrm h3{font-size:4.4vmin;color:var(--gold);margin:0}
+#qrm img{height:46vmin;width:46vmin;image-rendering:pixelated;border:4px solid #fff;background:#fff}
+#qrm .qurl{font-size:2.9vmin;color:#f3e9d2;user-select:all;word-break:break-all;text-align:center}
+#qrm .qbtns{display:flex;gap:1.6vmin;flex-wrap:wrap;justify-content:center}
+#qrm .qbtns button,#qrm .qbtns a{font:inherit;font-size:2.8vmin;padding:1.2vmin 2.4vmin;background:var(--bg);color:var(--gold);border:3px solid var(--gold);cursor:pointer;text-decoration:none}
+#qrm .qbtns button:hover,#qrm .qbtns a:hover{background:var(--gold);color:var(--bg)}
+#qx{position:absolute;top:1vmin;right:1.4vmin;width:6vmin;height:6vmin;font:inherit;font-size:5vmin;line-height:1;background:transparent;color:#f3e9d2;border:3px solid var(--line);cursor:pointer}
+#qx:hover{background:#b3262e;border-color:#b3262e}
+.repo-row{margin:6px 0 4px}
