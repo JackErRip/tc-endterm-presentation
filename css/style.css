@@ -173,3 +173,8 @@ h2::after{content:"";display:block;height:8px;width:100%;margin-top:14px;backgro
 .logo-sf3{position:relative;left:-46px}
 .byline{font-size:44px;color:#d9cfb8;gap:6px}
 .byline .logo-sf3{width:600px;left:-60px}
+.names{margin-top:40px;margin-bottom:22px}
+.byline+.names+.small,.names+.small{margin-top:10px}
+section:has(.byline) .hero{height:196px}
+.byline{margin-top:20px;gap:12px}
+.byline>span{text-shadow:0 0 8px #000,0 0 8px #000,2px 2px 0 #000}
