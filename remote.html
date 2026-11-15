@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#14111d">
+<title>Tyrone Clinton - Remote</title>
+<style>
+@font-face{font-family:m5x7;src:url(assets/fonts/m5x7.ttf)}
+:root{--bg:#14111d;--panel:#1d1828;--line:#3a3347;--gold:#e8b84a;--gold-d:#9c7426;--ink:#f3e9d2;--mute:#9a8fb3;--ok:#8fe39a;--bad:#ff8a8a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:m5x7,monospace;overflow:hidden;user-select:none;-webkit-user-select:none}
+body{display:flex;flex-direction:column;height:100dvh;padding:env(safe-area-inset-top) 12px env(safe-area-inset-bottom)}
+button{font:inherit;color:var(--gold);background:var(--panel);border:3px solid var(--gold-d);cursor:pointer;padding:0;touch-action:manipulation}
+button:active,button.hit{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.hide{display:none!important}
+#top{display:flex;align-items:center;gap:8px;padding:10px 0 8px}
+#stat{flex:1;font-size:22px;line-height:1.1;color:var(--mute)}
+#stat b{display:block;font-weight:400;font-size:26px;color:var(--bad)}
+#stat.ok b{color:var(--ok)}
+#top button{font-size:20px;height:40px;padding:0 12px}
+#head{padding:4px 0 8px}
+#cnt{font-size:34px;color:var(--gold)}
+#ttl{font-size:30px;line-height:1.1;margin-top:2px}
+#notes{flex:1;min-height:0;overflow:auto;background:var(--panel);border:3px solid var(--line);padding:12px 14px;font-size:26px;line-height:1.3;color:#e6dcc4;user-select:text;-webkit-user-select:text;font-family:Georgia,serif;font-size:19px;line-height:1.45}
+#timer{font-size:34px;color:var(--gold);padding:8px 2px 0;display:flex;gap:14px;align-items:baseline}
+#timer small{font-size:22px;color:var(--ok)}#timer small.late{color:var(--bad)}
+#row2{display:flex;gap:8px;padding-top:10px}
+#row2 button{flex:1;height:52px;font-size:26px}
+#row1{display:flex;gap:10px;padding:10px 0 12px;height:26dvh;min-height:130px}
+#prev{flex:1;font-size:34px}
+#next{flex:2;font-size:52px;background:var(--gold);color:var(--bg);border-color:var(--gold)}
+#next:active,#next.hit{background:#fff;border-color:#fff}
+#entry{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center}
+#entry h1{margin:0;font-size:40px;color:var(--gold)}
+#entry p{margin:0;font-size:24px;color:var(--mute)}
+#codein{width:100%;max-width:340px;font:inherit;font-size:54px;letter-spacing:.18em;text-align:center;text-transform:uppercase;background:var(--panel);color:var(--gold);border:3px solid var(--gold-d);padding:10px 0;user-select:text;-webkit-user-select:text}
+#go{width:100%;max-width:340px;height:64px;font-size:34px;background:var(--gold);color:var(--bg)}
+#msg{font-size:24px;color:var(--bad);min-height:30px}
+#bye{flex:none;margin:0 -12px;padding:10px 14px;background:#4a1a22;color:#ffd2d2;font-size:24px;line-height:1.15;text-align:center;border-bottom:3px solid #b3262e}
+</style></head><body>
+<div id="bye" class="hide"></div>
+
+<section id="entry" class="hide">
+ <h1>TYRONE CLINTON REMOTE</h1>
+ <p>Enter the 6-character code shown on the laptop (press P on the deck).</p>
+ <input id="codein" maxlength="6" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" inputmode="text" aria-label="Session code">
+ <div id="msg"></div>
+ <button id="go" type="button">Connect</button>
+</section>
+
+<section id="ctl" class="hide" style="display:none;flex:1;min-height:0;flex-direction:column">
+ <div id="top"><div id="stat">Connecting...</div><button id="rc" type="button">Reconnect</button><button id="dc" type="button">Disconnect</button></div>
+ <div id="head"><div id="cnt">- / -</div><div id="ttl">Waiting for the deck...</div></div>
+ <div id="notes"></div>
+ <div id="timer" class="hide"><span id="tclock">0:00</span><small id="tpace"></small></div>
+ <div id="row2"><button id="first" type="button">First</button><button id="tmr" type="button">Timer</button><button id="last" type="button">Last</button></div>
+ <div id="row1"><button id="prev" type="button">&lt; Prev</button><button id="next" type="button">Next &gt;</button></div>
+</section>
+
+<script src="js/relay.js?v=1"></script>
+<script>
+(function(){
+var T=window.TCR,SK='tcRemoteSaved';
+var $=function(i){return document.getElementById(i)};
+var code='',id=T.id(),rel=null,relUp=false,pc=null,dc=null,lastRx=0,hellos=0,helloT=null,syncT=null,ended=false,wake=null,tOff=null,tShow=false,tickT=null;
+function load(){try{return T.clean(localStorage.getItem(SK))}catch(e){return ''}}
+function save(c){try{if(c)localStorage.setItem(SK,c);else localStorage.removeItem(SK)}catch(e){}}
+function buzz(){try{navigator.vibrate&&navigator.vibrate(15)}catch(e){}}
+
+/* ---------- views ---------- */
+function show(v){$('entry').classList.toggle('hide',v!=='entry');$('entry').style.display=v==='entry'?'flex':'none';
+ var c=$('ctl');c.classList.toggle('hide',v!=='ctl');c.style.display=v==='ctl'?'flex':'none'}
+function showEntry(m){show('entry');$('msg').textContent=m||'';$('codein').value='';}
+function banner(t){var b=$('bye');if(!t){b.classList.add('hide');return}b.textContent=t;b.classList.remove('hide')}
+
+/* ---------- link state ---------- */
+function directOpen(){return !!(dc&&dc.readyState==='open')}
+function up(){return directOpen()||(Date.now()-lastRx<75000&&lastRx>0)}
+function ui(){var s=$('stat');if(!code)return;
+ var d=directOpen(),u=up(),line1=u?'Connected · '+(d?'direct ✓':'relay'):(relUp?'Waiting for the laptop...':'Connecting to relay...');
+ s.innerHTML='<b>'+line1+'</b>Code '+code;s.classList.toggle('ok',u)}
+
+/* ---------- transport ---------- */
+function closePc(){try{dc&&dc.close()}catch(e){}try{pc&&pc.close()}catch(e){}dc=null;pc=null}
+function closeAll(){clearInterval(helloT);clearInterval(syncT);closePc();if(rel)rel.close();rel=null;relUp=false;lastRx=0;hellos=0}
+function post(m){if(directOpen()){try{dc.send(JSON.stringify(m));return}catch(e){}}
+ if(rel)rel.post(m)}
+function hello(){if(!rel)return;if(up()||ended)return;if(hellos++>=12){ui();return}rel.post({t:'hello',id:id})}   // after ~2 minutes stop calling, so a lost phone does not eat the relay's daily quota
+function cmd(a){post({t:'cmd',a:a,id:id})}
+function wire(ch){dc=ch;
+ ch.onopen=function(){cmd('sync');ui()};
+ ch.onclose=function(){ui()};
+ ch.onmessage=function(e){try{onMsg(JSON.parse(e.data))}catch(x){}};if(ch.readyState==='open')ch.onopen()}
+function onMsg(m){
+ if(m.t==='state'){lastRx=Date.now();hellos=0;ended=false;banner('');render(m);ui()}
+ else if(m.t==='offer'){if(m.to!==id||!window.RTCPeerConnection)return;
+  closePc();var p=pc=new RTCPeerConnection({iceServers:T.ice});
+  p.ondatachannel=function(e){wire(e.channel)};
+  p.onconnectionstatechange=function(){ui()};
+  p.setRemoteDescription({type:'offer',sdp:m.sdp}).then(function(){return p.createAnswer()}).then(function(a){return p.setLocalDescription(a)}).then(function(){return T.gather(p,2500)}).then(function(){
+   if(pc!==p)return;rel&&rel.post({t:'answer',id:id,sdp:T.trim(p.localDescription.sdp)})}).catch(function(){})}
+ else if(m.t==='bye'){if(m.id===id)return;ended=true;lastRx=0;closePc();banner('The presenter ended the session. Reconnect, or enter a new code.');ui()}}
+function connect(fresh){
+ if(!code){showEntry();return}
+ closeAll();if(fresh)id=T.id();ended=false;banner('');show('ctl');ui();
+ rel=T.open(code,onMsg,function(u){relUp=u;if(u)hello();ui()});
+ helloT=setInterval(hello,10000);
+ syncT=setInterval(function(){if(rel&&up()&&!directOpen())cmd('sync')},25000);   // relay-mode heartbeat: the laptop answers with its state
+ grabWake()}
+function disconnect(){post({t:'bye',id:id});closeAll();save('');code='';tShow=false;$('timer').classList.add('hide');banner('');showEntry('')}
+
+/* ---------- what the laptop sent ---------- */
+function render(m){
+ $('cnt').textContent=m.c||'';$('ttl').textContent=m.title||'';
+ var n=$('notes');n.textContent=m.notes||'(no notes for this slide)';n.scrollTop=0;
+ if(m.clock!=null){var p=m.clock.split(':');tOff=Date.now()-((+p[0])*60+(+p[1]))*1000;$('tpace').textContent=m.pace||'';$('tpace').className=m.late?'late':'';paintT()}}
+function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+function paintT(){if(tOff!=null)$('tclock').textContent=fmt((Date.now()-tOff)/1000)}
+
+/* ---------- input: pointerdown, so a tap acts immediately ---------- */
+function tap(el,fn){
+ el.addEventListener('pointerdown',function(e){e.preventDefault();buzz();el.classList.add('hit');setTimeout(function(){el.classList.remove('hit')},120);fn()});
+ el.addEventListener('click',function(e){if(e.detail===0)fn()})}   // keyboard activation
+tap($('next'),function(){cmd('next')});tap($('prev'),function(){cmd('prev')});
+tap($('first'),function(){cmd('first')});tap($('last'),function(){cmd('last')});
+tap($('tmr'),function(){tShow=!tShow;$('timer').classList.toggle('hide',!tShow);if(tShow){cmd('timer');clearInterval(tickT);tickT=setInterval(paintT,1000)}else clearInterval(tickT)});
+tap($('rc'),function(){connect(true)});
+tap($('dc'),disconnect);
+function enter(){var c=T.clean($('codein').value);if(c.length!==6){$('msg').textContent='The code is 6 characters.';return}code=c;save(c);connect(true)}
+tap($('go'),enter);
+$('codein').addEventListener('input',function(){this.value=T.clean(this.value);$('msg').textContent=''});
+$('codein').addEventListener('keydown',function(e){if(e.key==='Enter')enter()});
+
+/* ---------- stay awake and come back by itself ---------- */
+function grabWake(){try{if(navigator.wakeLock&&document.visibilityState==='visible')navigator.wakeLock.request('screen').then(function(l){wake=l}).catch(function(){})}catch(e){}}
+function resume(){if(document.visibilityState!=='visible'||!code||ended)return;grabWake();if(!up())connect(false)}
+document.addEventListener('visibilitychange',resume);
+addEventListener('online',resume);
+addEventListener('pagehide',function(){if(code)post({t:'bye',id:id})});
+
+/* ---------- start ---------- */
+var q=new URLSearchParams(location.search).get('c'),c0=T.clean(q)||load();
+if(c0.length===6){code=c0;save(c0);try{if(q)history.replaceState(null,'',location.pathname)}catch(e){}connect(false)}
+else showEntry(q?'That code does not look right.':'');
+})();
+</script>
+</body></html>

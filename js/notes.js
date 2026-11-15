@@ -35,6 +35,8 @@ function ensureOv(){if(ov)return ov;ov=document.createElement('div');
 function paintOv(){if(!ov||ov.style.display==='none')return;var x=html();
  ov.firstChild.nextSibling.innerHTML='<div style="font:600 20px Georgia;color:#e8b84a">'+x.n+' - '+x.h+' <span style="color:#9a8fb3;font-weight:400">('+x.t+', '+x.clock+', '+x.pace+')</span></div><div style="font:28px/1.4 Georgia;color:#f3e9d2;margin-top:8px">'+x.s+'</div>'}
 function refresh(){if(pop&&!pop.closed&&pop.document.getElementById('s'))paint(pop.document);paintOv()}
+window.__notes=function(n){return N[n]||{}};
+window.__tinfo=function(){var x=html();return{clock:x.clock,pace:x.pace,late:x.late}};
 window.__slide=function(n){cur=n;if(n>=1&&!t0)t0=Date.now();refresh()};
 setInterval(refresh,1000);
 addEventListener('keydown',function(e){var k=e.key;

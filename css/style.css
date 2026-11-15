@@ -195,3 +195,21 @@ section:has(.byline) .hero{height:196px}
 #qx{position:absolute;top:1vmin;right:1.4vmin;width:6vmin;height:6vmin;font:inherit;font-size:5vmin;line-height:1;background:transparent;color:#f3e9d2;border:3px solid var(--line);cursor:pointer}
 #qx:hover{background:#b3262e;border-color:#b3262e}
 .repo-row{margin:6px 0 4px}
+
+#rbtn{position:fixed;left:10px;bottom:10px;z-index:9000;width:40px;height:40px;font-size:22px;line-height:1;background:rgba(20,17,29,.6);border:2px solid var(--line);color:#f3e9d2;cursor:pointer;opacity:.3;transition:opacity .2s}
+#rbtn:hover,#rbtn:focus-visible{opacity:1}
+#rbtn.live{opacity:1;border-color:#4fd37c;box-shadow:0 0 12px #4fd37c88}
+#rmt{position:fixed;inset:0;z-index:100000;display:none;align-items:center;justify-content:center;background:rgba(8,5,16,.86)}
+#rmt.on{display:flex}
+#rmt .qbox{position:relative;background:var(--panel);border:4px solid var(--gold);box-shadow:10px 10px 0 rgba(0,0,0,.5);padding:3.2vmin 4vmin;display:flex;flex-direction:column;align-items:center;gap:1.6vmin;max-width:92vw;max-height:94vh;font-family:inherit;color:#f3e9d2}
+#rmt h3{font-size:4.4vmin;color:var(--gold);margin:0}
+#rmt img{height:36vmin;width:36vmin;image-rendering:pixelated;border:4px solid #fff;background:#fff}
+#rmt .rcode{font-size:8vmin;letter-spacing:.1em;color:var(--gold);text-shadow:3px 3px 0 #000;user-select:all}
+#rmt .rlink{font-size:2.8vmin;color:#f3e9d2}
+#rmt .rnote{font-size:2.4vmin;color:#ff9a9a;min-height:0}
+#rmt .rstat{font-size:3vmin;color:#8fe39a}
+#rmt .qbtns{display:flex;gap:1.6vmin;flex-wrap:wrap;justify-content:center}
+#rmt .qbtns button{font:inherit;font-size:2.8vmin;padding:1.2vmin 2.4vmin;background:var(--bg);color:var(--gold);border:3px solid var(--gold);cursor:pointer}
+#rmt .qbtns button:hover{background:var(--gold);color:var(--bg)}
+#rmt .rx{position:absolute;top:1vmin;right:1.4vmin;width:6vmin;height:6vmin;font:inherit;font-size:5vmin;line-height:1;background:transparent;color:#f3e9d2;border:3px solid var(--line);cursor:pointer}
+#rmt .rx:hover{background:#b3262e;border-color:#b3262e}

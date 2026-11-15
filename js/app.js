@@ -115,6 +115,7 @@ addEventListener('keydown',function(e){var k=e.key;if(window.__qrOpen&&window.__
  else if(k==='Home')go(0);else if(k==='End')go(sl.length-1);
  else if(k==='f'||k==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}});
 addEventListener('click',function(e){if(e.target.closest('video,.tq'))return;go(e.clientX<innerWidth*.25?i-1:i+1)});
+window.__deck={go:go,at:function(){return i},len:sl.length};   // the phone remote drives the deck through this
 fit();var h=parseInt((location.hash||'').slice(1));apply(h>0?Math.min(h-1,sl.length-1):0);
 requestAnimationFrame(function(){requestAnimationFrame(function(){st.classList.add('ready')})});
 })();
