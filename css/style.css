@@ -166,3 +166,7 @@ h2::after{content:"";display:block;height:8px;width:100%;margin-top:14px;backgro
 .stats .props img{height:176px;width:auto;image-rendering:pixelated}
 .member{display:flex;align-items:center;gap:20px;min-width:0}
 .member .pfp{width:112px;height:112px;object-fit:cover;border:4px solid var(--gold);box-shadow:6px 6px 0 rgba(0,0,0,.45);flex:none}
+
+.names{display:flex;justify-content:center;align-items:center;gap:44px}
+.names .nm{display:flex;align-items:center;gap:14px}
+.names .nm img{width:72px;height:72px;object-fit:cover;border:3px solid var(--gold);box-shadow:4px 4px 0 rgba(0,0,0,.45)}
