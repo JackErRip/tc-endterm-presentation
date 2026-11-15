@@ -171,3 +171,5 @@ h2::after{content:"";display:block;height:8px;width:100%;margin-top:14px;backgro
 .names .nm{display:flex;align-items:center;gap:14px}
 .names .nm img{width:72px;height:72px;object-fit:cover;border:3px solid var(--gold);box-shadow:4px 4px 0 rgba(0,0,0,.45)}
 .logo-sf3{position:relative;left:-46px}
+.byline{font-size:44px;color:#d9cfb8;gap:6px}
+.byline .logo-sf3{width:600px;left:-60px}
