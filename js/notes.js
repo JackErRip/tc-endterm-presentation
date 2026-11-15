@@ -1,20 +1,20 @@
 /* Speaker notes. S = speaker window (notes, next slide, timer), N = notes on this screen. Budget: 10:00 */
 (function(){
 var N=[
-{t:20,h:'Title',s:"We're Special Forces of 3. This is Tyrone Clinton, a souls-like where one guy just wants to go home."},
-{t:45,h:'The Game',s:"Three pillars: tough bosses, three lands, and a world that doesn't hold your hand. Let the three loops play while you talk."},
-{t:40,h:'Character & Animation',s:"Tyrone is hand-animated. Idle, run, roll, attack, parry. Each one has to read clearly at pixel size, and they all have to feel responsive."},
-{t:35,h:'Bosses',s:"Every land ends with a boss that has its own attacks and its own personality."},
+{t:20,h:'Title',s:"Hi, we're Special Forces of 3: Aldrien, Kurt and Zenon. Our game is Tyrone Clinton: Wants to Go Home, a souls-like about a guy who did not sign up for any of this and just wants to go home."},
+{t:45,h:'The Game',s:"Three pillars: tough bosses, three lands, and a world that doesn't hold your hand. Dark fantasy, but played for laughs, because Tyrone insults everyone and doesn't care. Let the three loops play while you talk."},
+{t:50,h:'Character & Animation',s:"Tyrone is a 48 by 48 pixel sprite with five facing directions. Idle is 12 frames at 6 fps. Run is 8 frames at 16. Attack is 5 to 6 frames at 11 to 12 fps. Death is 8 frames at 10. Dodge and hurt are bonus animations at 13 and 14 fps. Zenon made the hit sparks, blood and parry sparks in the corner, and every hit also gets a tiny pause so it feels heavy."},
+{t:35,h:'Bosses',s:"Every land ends with a boss that has its own attacks and its own personality. Tekitou Teru is the forgettable one, and he knows it. Art by Kurt."},
 {t:30,h:'On the Road',s:"Between every boss the road is not empty: husks, brutes and slimes. Let the clips play."},
 {t:55,h:'Boss Fight: Godskin Hunchback',s:"Play the clip. Watch his wind-up before he swings, then dodge or parry and hit back. Every hit has a spark and a tiny pause, which is why it feels heavy."},
-{t:30,h:'Tilesets',s:"Each land has its own tileset. We build the level from tiles, then add props and lighting on top."},
+{t:30,h:'Tilesets',s:"The tiles are 16 by 16 and the game resolution is 480 by 270. Five sets: plains, desert, mountains, catacombs and the castle, which has five themes. Kurt drew the trees, bushes and flowers in the strip at the bottom."},
 {t:30,h:'Across the Land',s:"Plains, desert, mountains, then Johnny's castle. One road home, and a boss at every gate."},
-{t:25,h:'Inside the Keep',s:"The castle is crimson and gold with sunlit windows. Furnace, library, living quarters, and every hall ends at Johnny's door. CUT THIS ONE if you are running late."},
+{t:15,h:'Inside the Keep',s:"The castle is crimson and gold with sunlit windows. Every hall ends at Johnny's door. CUT THIS ONE if you are running late."},
 {t:50,h:'No Invisible Walls',s:"Most games stop you at the map edge with an invisible wall. We hated that. Here you can walk into the lake, the quicksand or off the cliff. The edge never stops you, it just kills you. Play the three clips."},
-{t:40,h:'Level Mock-up: The Castle',s:"Fire grates burn on a timer. Statues come alive when you pass. And behind one fake wall there is a secret room."},
+{t:40,h:'Level Mock-up: The Castle',s:"This is our animated level mock-up. Fire grates burn on a timer. Statues come alive when you pass. And behind one fake wall there is a secret room."},
 {t:30,h:'Meet Mort',s:"Mort is the horse. Whistle and he comes, and you ride him across the land."},
 {t:150,h:'Trailer',s:"Press play and say nothing. If you are behind, press Space after about a minute to skip to the end."},
-{t:20,h:'Thank You',s:"Thanks. Questions? Short answers: Godot 4. Hard but fair, with a funny tone. Next: Android and Steam, then co-op. Name each member's part."}
+{t:20,h:'Thank You',s:"Thank you. Aldrien led and directed. Kurt did the trees, plants and Tekitou Teru. Zenon did the hit sparks and blood FX. Questions? Short answers: made in Godot 4. Hard but fair, with a funny tone. Next: Android and Steam, then co-op."}
 ];
 var cur=0,t0=0,pop=null,ov=null;
 function mmss(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
