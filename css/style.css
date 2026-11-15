@@ -158,3 +158,11 @@ h2::after{content:"";display:block;height:8px;width:100%;margin-top:14px;backgro
 .fxrow>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:26px;color:var(--mute)}
 .fxrow .well{height:128px}
 .fxrow .well img{image-rendering:pixelated}
+
+.tile img{height:330px}
+.stats{align-items:flex-end;justify-content:space-between;margin-top:28px;gap:40px}
+.stats .st{display:flex;flex-direction:column;gap:8px;font-size:44px}
+.stats .props{display:flex;flex-direction:column;align-items:flex-end;gap:6px;font-size:36px}
+.stats .props img{height:176px;width:auto;image-rendering:pixelated}
+.member{display:flex;align-items:center;gap:20px;min-width:0}
+.member .pfp{width:112px;height:112px;object-fit:cover;border:4px solid var(--gold);box-shadow:6px 6px 0 rgba(0,0,0,.45);flex:none}
