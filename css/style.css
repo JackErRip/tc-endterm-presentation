@@ -178,3 +178,4 @@ h2::after{content:"";display:block;height:8px;width:100%;margin-top:14px;backgro
 section:has(.byline) .hero{height:196px}
 .byline{margin-top:20px;gap:12px}
 .byline>span{text-shadow:0 0 8px #000,0 0 8px #000,2px 2px 0 #000}
+.byline{gap:34px}.names{margin-top:30px}
