@@ -213,3 +213,7 @@ section:has(.byline) .hero{height:196px}
 #rmt .qbtns button:hover{background:var(--gold);color:var(--bg)}
 #rmt .rx{position:absolute;top:1vmin;right:1.4vmin;width:6vmin;height:6vmin;font:inherit;font-size:5vmin;line-height:1;background:transparent;color:#f3e9d2;border:3px solid var(--line);cursor:pointer}
 #rmt .rx:hover{background:#b3262e;border-color:#b3262e}
+
+/* phones: the 1920px stage must never widen the page (that makes the browser zoom out and the deck vanish) */
+html,body{position:fixed;inset:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none;touch-action:manipulation}
+@media (max-width:900px){#rbtn{display:none}}
